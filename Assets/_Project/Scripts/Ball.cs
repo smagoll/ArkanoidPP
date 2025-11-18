@@ -1,21 +1,18 @@
-using System;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float minYAngle = 0.25f; 
+    [SerializeField] private float minXAngle = 0.25f; 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float damage = 1f;
     
-    private Vector2 direction;
+    private Transform platform;
+    private Vector3 offset; 
     
+    private Vector2 direction;
     private bool launched = false;
-
-    private void Start()
-    {
-        Launch(new Vector2(0.5f, 0.5f));
-    }
     
     public void Launch(Vector2 startDirection)
     {
@@ -25,8 +22,26 @@ public class Ball : MonoBehaviour
         direction = startDirection.normalized;
     }
     
+    public void AttachToPlatform(Transform platformTransform)
+    {
+        platform = platformTransform;
+        launched = false;
+        offset = transform.position - platform.position;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    private void Update()
+    {
+        if (!launched && platform != null)
+        {
+            transform.position = platform.position + offset;
+        }
+    }
+    
     private void FixedUpdate()
     {
+        if (!launched) return;
+        
         rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
     }
 
@@ -44,6 +59,12 @@ public class Ball : MonoBehaviour
         if (Mathf.Abs(direction.y) < minYAngle)
         {
             direction.y = Mathf.Sign(direction.y) * minYAngle;
+            direction = direction.normalized;
+        }
+        
+        if (Mathf.Abs(direction.x) < minXAngle)
+        {
+            direction.x = Mathf.Sign(direction.x) * minXAngle;
             direction = direction.normalized;
         }
     }
@@ -80,5 +101,10 @@ public class Ball : MonoBehaviour
         float factor = hitPoint / halfWidth;
 
         direction = new Vector2(factor, 1).normalized;
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

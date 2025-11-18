@@ -14,7 +14,6 @@ public class DeathZone : MonoBehaviour
             if (ball != null)
             {
                 OnBallEntered?.Invoke(ball);
-                Debug.Log("Ball entered");
             }
         }
     }
