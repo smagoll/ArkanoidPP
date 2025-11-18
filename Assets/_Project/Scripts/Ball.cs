@@ -3,16 +3,82 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float minYAngle = 0.25f; 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private float damage = 1f;
+    
+    private Vector2 direction;
+    
+    private bool launched = false;
 
     private void Start()
     {
         Launch(new Vector2(0.5f, 0.5f));
     }
-
-    public void Launch(Vector2 direction)
+    
+    public void Launch(Vector2 startDirection)
     {
-        rb.linearVelocity = direction * speed;
+        if (launched) return;
+
+        launched = true;
+        direction = startDirection.normalized;
+    }
+    
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
+    }
+
+    public void ResetBall(Transform platform)
+    {
+        launched = false;
+
+        rb.linearVelocity = Vector2.zero;
+
+        transform.position = platform.position + new Vector3(0, 0.5f, 0);
+    }
+    
+    private void FixMinAngle()
+    {
+        if (Mathf.Abs(direction.y) < minYAngle)
+        {
+            direction.y = Mathf.Sign(direction.y) * minYAngle;
+            direction = direction.normalized;
+        }
+    }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Platform"))
+        {
+            BounceFromPlatform(other);
+        }
+        else
+        {
+            Bounce(other.contacts[0].normal);
+        }
+        
+        FixMinAngle();
+        
+        var damageable = other.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+        }
+    }
+    
+    private void Bounce(Vector2 normal)
+    {
+        direction = Vector2.Reflect(direction, normal).normalized;
+    }
+
+    private void BounceFromPlatform(Collision2D collision)
+    {
+        float hitPoint = transform.position.x - collision.transform.position.x;
+        float halfWidth = collision.collider.bounds.size.x / 2f;
+        float factor = hitPoint / halfWidth;
+
+        direction = new Vector2(factor, 1).normalized;
     }
 }
