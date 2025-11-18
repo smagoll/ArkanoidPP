@@ -12,6 +12,8 @@ public class Platform : MonoBehaviour
     private float halfWidth;
     private float halfHeight;
 
+    public bool IsActive { get; set; } = true;
+
     private void Start()
     {
         cam = Camera.main;
@@ -26,6 +28,8 @@ public class Platform : MonoBehaviour
 
     private void Update()
     {
+        if (!IsActive) return;
+        
         UpdateBounds();
 
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);

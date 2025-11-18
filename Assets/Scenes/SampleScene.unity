@@ -849,7 +849,7 @@ MonoBehaviour:
   ballSpawner: {fileID: 711602259}
   platformTransform: {fileID: 2067497634}
   levelRoot: {fileID: 493679717}
-  uiManager: {fileID: 1708455833}
+  platform: {fileID: 2067497637}
 --- !u!114 &711602259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3004,6 +3004,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 565872125385913889, guid: 840c443a531fba246a51f47346645587, type: 3}
   m_PrefabInstance: {fileID: 919312508198935330}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2067497637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5798144127589856321, guid: 840c443a531fba246a51f47346645587, type: 3}
+  m_PrefabInstance: {fileID: 919312508198935330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d892600c5f2e4114d907072d952c8ceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2090979288
 PrefabInstance:
   m_ObjectHideFlags: 0
