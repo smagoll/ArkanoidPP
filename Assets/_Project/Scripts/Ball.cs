@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Ball : MonoBehaviour
 {
@@ -17,8 +18,16 @@ public class Ball : MonoBehaviour
     private Vector2 direction;
     private bool launched = false;
     
+    public bool IsLaunched => launched;
     public Vector2 Direction => direction;
+    
+    private ObjectPool<Ball> _pool;
 
+    public void SetPool(ObjectPool<Ball> pool)
+    {
+        _pool = pool;
+    }
+    
     public void Init(BallSpeed ballSpeed)
     {
         _ballSpeed = ballSpeed;
@@ -113,8 +122,11 @@ public class Ball : MonoBehaviour
         direction = new Vector2(factor, 1).normalized;
     }
 
-    public void Destroy()
+    public void ReturnToPool()
     {
-        Destroy(gameObject);
+        rb.linearVelocity = Vector2.zero;
+        launched = false;
+        platform = null;
+        _pool.Release(this);
     }
 }

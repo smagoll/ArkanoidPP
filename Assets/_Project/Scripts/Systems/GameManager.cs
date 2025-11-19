@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void InitializeManagers()
     {
         brickManager = new BrickManager();
-        ballManager = new BallManager(ballSpawner, platform.transform);
+        ballManager = new BallManager(ballSpawner);
         levelController = new LevelController(brickManager, ballManager);
         
         upgradeDropper.Init(this);
@@ -47,7 +47,11 @@ public class GameManager : MonoBehaviour
     private void SpawnInitialBall()
     {
         Vector3 spawnPos = platform.transform.position + Vector3.up * 2f;
-        ballManager.SpawnBall(spawnPos, attachToPlatform: true);
+        var ball = ballManager.SpawnBall(spawnPos);
+        
+        ball.ResetBall(platform.transform);
+        
+        ball.AttachToPlatform(platform.transform);
     }
 
     private void Complete()
