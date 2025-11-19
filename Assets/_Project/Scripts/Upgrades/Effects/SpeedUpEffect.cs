@@ -5,8 +5,8 @@ public class SpeedUpEffect : UpgradeEffect
 {
     public float speedMultiplier = 1.1f;
 
-    public override void Apply(GameManager game)
+    public override void Apply(GameManager gm)
     {
-        game.BallManager.Speed.Multiply(speedMultiplier);
+        gm.BallManager.Speed.Multiply(speedMultiplier);
     }
 }

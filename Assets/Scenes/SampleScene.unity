@@ -880,6 +880,8 @@ MonoBehaviour:
   pickupPrefab: {fileID: 7696269126364128427, guid: 744635b26b6f02247b5fd29c35089eaf, type: 3}
   effects:
   - {fileID: 11400000, guid: e7fcdac0c7e0cf64c87ab938e6d9a164, type: 2}
+  - {fileID: 11400000, guid: 4bf7590c8ac8c1b4f875741e39a7bb32, type: 2}
+  - {fileID: 11400000, guid: 56f55260b63f74c438bd98105ef2dc4b, type: 2}
   dropChance: 0.25
 --- !u!1 &769944522
 GameObject:

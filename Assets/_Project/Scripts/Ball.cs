@@ -16,6 +16,8 @@ public class Ball : MonoBehaviour
     
     private Vector2 direction;
     private bool launched = false;
+    
+    public Vector2 Direction => direction;
 
     public void Init(BallSpeed ballSpeed)
     {

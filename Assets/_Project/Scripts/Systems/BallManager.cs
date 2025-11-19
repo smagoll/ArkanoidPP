@@ -60,4 +60,30 @@ public class BallManager
 
         _activeBalls.Clear();
     }
+
+    public void MultiplyBalls(int count)
+    {
+        if (_activeBalls.Count == 0) return;
+
+        List<Ball> originalBalls = new List<Ball>(_activeBalls);
+
+        foreach (var ball in originalBalls)
+        {
+            Vector2 baseDirection = ball.Direction;
+
+            float spreadAngle = 45f; // угол разлёта
+            float step = spreadAngle / (count + 1);
+
+            for (int i = 0; i < count; i++)
+            {
+                float angle = -spreadAngle/2 + step * (i + 1);
+
+                Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDirection;
+
+                Ball newBall = SpawnBall(ball.transform.position, attachToPlatform: false);
+
+                newBall.Launch(dir.normalized);
+            }
+        }
+    }
 }
