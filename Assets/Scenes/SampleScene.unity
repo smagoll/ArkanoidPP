@@ -811,6 +811,7 @@ GameObject:
   - component: {fileID: 711602257}
   - component: {fileID: 711602258}
   - component: {fileID: 711602259}
+  - component: {fileID: 711602260}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -847,9 +848,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathZone: {fileID: 1875749719}
   ballSpawner: {fileID: 711602259}
-  platformTransform: {fileID: 2067497634}
   levelRoot: {fileID: 493679717}
   platform: {fileID: 2067497637}
+  upgradeDropper: {fileID: 711602260}
 --- !u!114 &711602259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -864,6 +865,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 235076880658458218, guid: de54a6c42d98c5e4184839fe02fe160e, type: 3}
   ballRoot: {fileID: 1850734001}
+--- !u!114 &711602260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711602256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12852c4415fc41f4883116829d97f278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupPrefab: {fileID: 7696269126364128427, guid: 744635b26b6f02247b5fd29c35089eaf, type: 3}
+  effects:
+  - {fileID: 11400000, guid: e7fcdac0c7e0cf64c87ab938e6d9a164, type: 2}
+  dropChance: 0.25
 --- !u!1 &769944522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,7 +2786,7 @@ GameObject:
   - component: {fileID: 1875749719}
   m_Layer: 0
   m_Name: DeathZone
-  m_TagString: Untagged
+  m_TagString: DeathZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

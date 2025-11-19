@@ -7,6 +7,7 @@ public class BrickManager
 
     public int BrickCount => _activeBricks.Count;
     public event Action OnAllBricksDestroyed;
+    public event Action<Brick> OnBricksDestroyed;
 
     public void AddBrick(Brick brick)
     {
@@ -20,6 +21,8 @@ public class BrickManager
     {
         brick.OnDestroyed -= HandleBrickDestroyed;
         _activeBricks.Remove(brick);
+        
+        OnBricksDestroyed?.Invoke(brick);
 
         if (_activeBricks.Count == 0)
             OnAllBricksDestroyed?.Invoke();

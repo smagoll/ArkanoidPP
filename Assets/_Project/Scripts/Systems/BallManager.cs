@@ -8,18 +8,25 @@ public class BallManager
     private readonly Transform _platform;
     private readonly List<Ball> _activeBalls = new();
 
+    public BallSpeed Speed { get; private set; }
+    
     public int BallCount => _activeBalls.Count;
     public event Action OnAllBallsLost;
 
-    public BallManager(BallSpawner spawner, Transform platform)
+    public BallManager(BallSpawner spawner, Transform platform, float speed = 10f)
     {
         _spawner = spawner;
         _platform = platform;
+
+        Speed = new BallSpeed(speed);
     }
 
     public Ball SpawnBall(Vector3 position, bool attachToPlatform = false)
     {
         Ball ball = _spawner.Spawn(position);
+        
+        ball.Init(Speed);
+        
         ball.ResetBall(_platform);
 
         if (attachToPlatform)

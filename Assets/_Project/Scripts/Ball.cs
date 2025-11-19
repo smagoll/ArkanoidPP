@@ -2,17 +2,25 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
     [SerializeField] private float minYAngle = 0.25f; 
     [SerializeField] private float minXAngle = 0.25f; 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float damage = 1f;
+
+    public float Speed => _ballSpeed.CurrentSpeed;
+
+    private BallSpeed _ballSpeed;
     
     private Transform platform;
     private Vector3 offset; 
     
     private Vector2 direction;
     private bool launched = false;
+
+    public void Init(BallSpeed ballSpeed)
+    {
+        _ballSpeed = ballSpeed;
+    }
     
     public void Launch(Vector2 startDirection)
     {
@@ -42,7 +50,7 @@ public class Ball : MonoBehaviour
     {
         if (!launched) return;
         
-        rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + direction * Speed * Time.fixedDeltaTime);
     }
 
     public void ResetBall(Transform platform)

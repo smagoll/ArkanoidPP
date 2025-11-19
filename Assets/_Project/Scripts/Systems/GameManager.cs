@@ -6,10 +6,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BallSpawner ballSpawner;
     [SerializeField] private Transform levelRoot;
     [SerializeField] private Platform platform;
+    [SerializeField] private UpgradeDropper upgradeDropper;
 
     private LevelController levelController;
     private BallManager ballManager;
     private BrickManager brickManager;
+    
+    public BallManager BallManager => ballManager;
+    public BrickManager BrickManager => brickManager;
 
     private void Start()
     {
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
         brickManager = new BrickManager();
         ballManager = new BallManager(ballSpawner, platform.transform);
         levelController = new LevelController(brickManager, ballManager);
+        
+        upgradeDropper.Init(this);
 
         // Подключаем UI
         levelController.OnLevelCompleted += Complete;
